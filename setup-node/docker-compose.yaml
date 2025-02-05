@@ -1,0 +1,11 @@
+services:
+  stellar:
+    image: stellar/quickstart:testing
+    ports:
+      - "8000:8000"
+      - "6061:6061"
+    command: [
+      "--local",
+      "--enable-soroban-rpc",
+      "--enable-soroban-rpc-admin-endpoint"
+    ]

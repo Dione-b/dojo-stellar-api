@@ -1,6 +1,6 @@
 from stellar_sdk import Server, SorobanServer, soroban_rpc
 
-horizon_server = Server(horizon_url="https://horizon-testnet.stellar.org")
+horizon_server = Server(horizon_url="http://localhost:8000")
 soroban_server = SorobanServer(server_url='https://soroban-testnet.stellar.org', client=None)
 
 
@@ -12,11 +12,11 @@ def get_block_info(block_id: str):
     return ledger
 
 
-def get_transaction(tx_hash: str) -> soroban_rpc.GetTransactionResponse:
+def get_transaction(tx_hash: str):
     """
     Search for information from a transaction through Hash
     """
-    tx = soroban_server.get_transaction(tx_hash)
+    tx = "http://localhost:8000/transactions/" + tx_hash
     return tx
 
 

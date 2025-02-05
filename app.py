@@ -1,6 +1,7 @@
 import json
 from flask import Flask, jsonify, request, Response
 from service.service import get_block_info, get_transaction, get_all_balances
+from stellar_sdk.xdr import TransactionResult
 
 app = Flask(__name__)
 
@@ -24,14 +25,9 @@ def get_transaction_route(tx_hash: str):
     """
     try:
         transaction_info = get_transaction(tx_hash)
-        transaction_dict = {k: v for k, v in transaction_info.__dict__.items() 
-                          if not k.startswith('_')}
-        return jsonify(transaction_dict), 200 
+        return transaction_info, 200 
     except Exception as e:
-        return jsonify({
-            "error": str(e),
-            "transaction_hash": tx_hash
-        }), 500
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route('/balance/<string:public_key>', methods=['GET'])
